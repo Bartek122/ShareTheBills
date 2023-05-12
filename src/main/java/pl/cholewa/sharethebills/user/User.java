@@ -1,6 +1,7 @@
 package pl.cholewa.sharethebills.user;
 
 import lombok.*;
+import pl.cholewa.sharethebills.group.Group;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,5 +27,7 @@ public class User {
 
     @OneToMany(mappedBy = "userId")
     private List<UserAttribute> userAttributesList = new ArrayList<>();
+    @ManyToMany
+    private List<Group> group = new ArrayList<>();
 
 }
