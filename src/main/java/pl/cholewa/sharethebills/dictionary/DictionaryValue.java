@@ -17,7 +17,7 @@ public class DictionaryValue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private Dictionary dictionaryName;
+    private Dictionary dictionary;
     @Column(nullable = false)
     private String value;
 
