@@ -1,6 +1,5 @@
 package pl.cholewa.sharethebills.user;
 
-import com.sun.xml.bind.v2.schemagen.xmlschema.AttributeType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +20,8 @@ public class UserAttribute {
     @Column(nullable = false)
     private String type;
     @Column(nullable = false)
-    private String value;
+    private String content;
+
+
 
 }
