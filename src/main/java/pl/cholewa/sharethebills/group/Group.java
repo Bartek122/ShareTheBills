@@ -22,6 +22,11 @@ public class Group {
     @Column(nullable = false)
     private String name;
     @ManyToMany
+    @JoinTable(
+            name = "groups_users",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users = new ArrayList<>();
     @OneToMany(mappedBy = "group")
     private List<Bill> bills = new ArrayList<>();
