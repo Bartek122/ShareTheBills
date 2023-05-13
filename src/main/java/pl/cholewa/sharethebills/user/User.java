@@ -27,7 +27,6 @@ public class User {
 
     @OneToMany(mappedBy = "userId")
     private List<UserAttribute> userAttributesList = new ArrayList<>();
-    @ManyToMany
-    private List<Group> group = new ArrayList<>();
+
 
 }
