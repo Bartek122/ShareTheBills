@@ -7,6 +7,7 @@ import pl.cholewa.sharethebills.user.User;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -29,4 +30,10 @@ public class Bill {
     private Group group;
     @OneToMany(mappedBy = "masterBill")
     private List<BillDetail> billDetails;
+    private LocalDateTime created;
+    @PrePersist
+    public void prePersist() {
+        this.created = LocalDateTime.now();
+    }
+
 }
