@@ -2,6 +2,7 @@ package pl.cholewa.sharethebills.bill;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.cholewa.sharethebills.billDetail.BillDetail;
 import pl.cholewa.sharethebills.billDetail.BillDetailRepository;
 import pl.cholewa.sharethebills.group.Group;
@@ -25,13 +26,13 @@ public class BillServiceImpl implements BillService{
 
 
     @Override
+    @Transactional
     public BillResponse insert(CreateBillRequest billRequest) {
         User payer = userRepository.findByLogin(billRequest.loginPayer());
         Group group = groupRepository.findByName(billRequest.groupName());
         List<User> userList = group.getUsers();
         int userCount = userList.size();
         BigDecimal priceByUser = amountPerUser(billRequest.price(), userCount);
-                //billRequest.price().divide(new BigDecimal(userCount),10 ,RoundingMode.HALF_UP);
 
         Bill bill = Bill.builder()
                 .description(billRequest.description())
@@ -57,7 +58,7 @@ public class BillServiceImpl implements BillService{
 
 
     @Override
-    public List<BillResponse> getAllbyPayer(String login) {
+    public List<BillResponse> getAllByPayer(String login) {
         User payer = userRepository.findByLogin(login);
         List<Bill> bills = billRepository.findAllByPayer(payer);
         return bills.stream()
@@ -66,6 +67,7 @@ public class BillServiceImpl implements BillService{
     }
 
     @Override
+    @Transactional
     public BillResponse update(Long id,UpdateBillRequest billRequest) {
         Optional<Bill> oldBill = billRepository.findById(id);
        return billRepository.findById(id)
@@ -104,6 +106,11 @@ public class BillServiceImpl implements BillService{
                .orElseThrow(() -> new IllegalArgumentException("No bill with id" + id));
 
 
+    }
+
+    @Override
+    public void billDelete(Long id) {
+        billRepository.deleteById(id);
     }
 
 

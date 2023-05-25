@@ -28,7 +28,7 @@ public class Bill {
     private User payer;
     @ManyToOne
     private Group group;
-    @OneToMany(mappedBy = "masterBill")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "masterBill")
     private List<BillDetail> billDetails;
     private LocalDateTime created;
     @PrePersist

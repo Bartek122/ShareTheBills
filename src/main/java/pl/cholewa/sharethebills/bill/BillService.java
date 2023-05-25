@@ -8,8 +8,9 @@ import java.util.List;
 public interface BillService {
 
     BillResponse insert (CreateBillRequest billRequest);
-    List<BillResponse> getAllbyPayer (String login);
+    List<BillResponse> getAllByPayer (String login);
     BillResponse update (Long id,UpdateBillRequest billRequest);
 
+    void billDelete(Long id);
 }
 

@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -18,7 +17,7 @@ public class BillController {
 
     @GetMapping("/{login}")
     public List<BillResponse> getBill(@PathVariable String login){
-        List<BillResponse> bills = billService.getAllbyPayer(login);
+        List<BillResponse> bills = billService.getAllByPayer(login);
         log.debug("Collected {} bills",bills.size());
         return bills;
     }
@@ -28,16 +27,15 @@ public class BillController {
         BillResponse response = billService.update(id, request);
         return ResponseEntity.ok(response);
     }
-
-
-
-
-
     @PostMapping
     public ResponseEntity<?> insertBill(@RequestBody @Valid CreateBillRequest request){
         BillResponse response = billService.insert(request);
         return ResponseEntity.ok()
                 .body(response);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteBill(@PathVariable Long id){
+        billService.billDelete(id);
     }
 
 }
