@@ -11,12 +11,13 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private User userId;
+    private User user;
     @Column(nullable = false)
     private String type;
     @Column(nullable = false)
