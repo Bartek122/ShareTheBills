@@ -12,6 +12,7 @@ import pl.cholewa.sharethebills.user.UserRepository;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +30,8 @@ public class BillServiceImpl implements BillService{
         Group group = groupRepository.findByName(billRequest.groupName());
         List<User> userList = group.getUsers();
         int userCount = userList.size();
-        BigDecimal priceByUser = billRequest.price().divide(new BigDecimal(userCount),10 ,RoundingMode.HALF_UP);
+        BigDecimal priceByUser = amountPerUser(billRequest.price(), userCount);
+                //billRequest.price().divide(new BigDecimal(userCount),10 ,RoundingMode.HALF_UP);
 
         Bill bill = Bill.builder()
                 .description(billRequest.description())
@@ -64,8 +66,44 @@ public class BillServiceImpl implements BillService{
     }
 
     @Override
-    public BillResponse update(UpdateBillRequest billRequest) {
-        return null;
+    public BillResponse update(Long id,UpdateBillRequest billRequest) {
+        Optional<Bill> oldBill = billRepository.findById(id);
+       return billRepository.findById(id)
+                .map(bill -> {
+                    if (billRequest.price() !=null){
+                        bill.setSumPrice(billRequest.price());
+                        User payer = bill.getPayer();
+                        List<User> userList = bill.getGroup().getUsers();
+                        int userCount = userList.size();
+                        BigDecimal priceByUser= amountPerUser(billRequest.price(), userCount);
+                        for (User user : userList) {
+                            if (user != payer) {
+                              BillDetail billDetail =  billDetailRepository.findByBorrowerAndMasterBill(user,billRepository
+                                        .findById(id)
+                                        .orElseThrow(() -> new IllegalArgumentException("No bill with id" + id)));
+                              billDetail.setPrice(priceByUser);
+                              billDetailRepository.save(billDetail);
+                            }
+                        }
+
+                    } else {
+                        bill.setSumPrice(oldBill.get().getSumPrice());
+                    }
+                    if (billRequest.description() !=null){
+                        bill.setDescription(billRequest.description());
+                    } else {
+                        bill.setDescription(oldBill.get().getDescription());
+                    }
+
+                    return bill;
+                        }
+
+                )
+               .map(billRepository::save)
+               .map(this::toResponse)
+               .orElseThrow(() -> new IllegalArgumentException("No bill with id" + id));
+
+
     }
 
 
@@ -74,6 +112,9 @@ public class BillServiceImpl implements BillService{
                 bill.getDescription(),
                 bill.getSumPrice()
         );
+    }
+    private BigDecimal amountPerUser(BigDecimal sumAmount, int userCount){
+        return sumAmount.divide(new BigDecimal(userCount),10 ,RoundingMode.HALF_UP);
     }
 
 }

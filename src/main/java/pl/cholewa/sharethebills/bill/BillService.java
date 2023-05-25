@@ -9,6 +9,7 @@ public interface BillService {
 
     BillResponse insert (CreateBillRequest billRequest);
     List<BillResponse> getAllbyPayer (String login);
-    BillResponse update (UpdateBillRequest billRequest);
+    BillResponse update (Long id,UpdateBillRequest billRequest);
+
 }
 

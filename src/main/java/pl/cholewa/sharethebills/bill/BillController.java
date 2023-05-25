@@ -23,6 +23,13 @@ public class BillController {
         return bills;
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<BillResponse> updateBill(@PathVariable Long id,@RequestBody @Valid UpdateBillRequest request){
+        BillResponse response = billService.update(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+
 
 
 
