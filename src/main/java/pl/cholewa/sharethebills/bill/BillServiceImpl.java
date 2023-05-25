@@ -109,6 +109,7 @@ public class BillServiceImpl implements BillService{
     }
 
     @Override
+    @Transactional
     public void billDelete(Long id) {
         billRepository.deleteById(id);
     }
