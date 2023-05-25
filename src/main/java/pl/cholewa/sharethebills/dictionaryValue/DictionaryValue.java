@@ -1,6 +1,7 @@
-package pl.cholewa.sharethebills.dictionary;
+package pl.cholewa.sharethebills.dictionaryValue;
 
 import lombok.*;
+import pl.cholewa.sharethebills.dictionary.Dictionary;
 
 import javax.persistence.*;
 
