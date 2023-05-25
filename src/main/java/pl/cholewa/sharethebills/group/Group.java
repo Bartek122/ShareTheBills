@@ -30,6 +30,8 @@ public class Group {
     private List<User> users = new ArrayList<>();
     @OneToMany(mappedBy = "group")
     private List<Bill> bills = new ArrayList<>();
+    @ManyToOne
+    private User owner;
 
 
 }
