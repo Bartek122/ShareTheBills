@@ -39,23 +39,20 @@ public class BillServiceImpl implements BillService{
                 .sumPrice(billRequest.price())
                 .payer(payer)
                 .group(group)
-
-        .build();
+                .build();
         billRepository.save(bill);
-
         for (User user: userList) {
-            if(user!=payer) {
                 BillDetail billDetail = BillDetail.builder()
                         .masterBill(bill)
                         .borrower(user)
                         .price(priceByUser)
+                        .isChange(false)
                         .build();
                 billDetailRepository.save(billDetail);
-            }
+
         }
         return toResponse(bill);
     }
-
 
     @Override
     public List<BillResponse> getAllByPayer(String login) {
@@ -79,13 +76,12 @@ public class BillServiceImpl implements BillService{
                         int userCount = userList.size();
                         BigDecimal priceByUser= amountPerUser(billRequest.price(), userCount);
                         for (User user : userList) {
-                            if (user != payer) {
                               BillDetail billDetail =  billDetailRepository.findByBorrowerAndMasterBill(user,billRepository
                                         .findById(id)
                                         .orElseThrow(() -> new IllegalArgumentException("No bill with id" + id)));
                               billDetail.setPrice(priceByUser);
+                              billDetail.setChange(false);
                               billDetailRepository.save(billDetail);
-                            }
                         }
 
                     } else {
@@ -104,14 +100,19 @@ public class BillServiceImpl implements BillService{
                .map(billRepository::save)
                .map(this::toResponse)
                .orElseThrow(() -> new IllegalArgumentException("No bill with id" + id));
-
-
     }
-
     @Override
     @Transactional
     public void billDelete(Long id) {
         billRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BillResponse> getAll() {
+        List<Bill> bills = billRepository.getAllBy();
+        return bills.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 
 
