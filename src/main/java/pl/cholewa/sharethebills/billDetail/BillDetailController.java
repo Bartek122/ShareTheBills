@@ -2,10 +2,8 @@ package pl.cholewa.sharethebills.billDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,5 +20,11 @@ public class BillDetailController {
     public List<BillDetailResponse> getDetail(@RequestBody @Valid BillDetailRequest billDetailRequest){
         List<BillDetailResponse> billDetailResponses = billDetailService.getSumByBorrower(billDetailRequest);
         return billDetailResponses;
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateBillDetail(@PathVariable Long id, @RequestBody @Valid UpdateBillDetailRequest request){
+        billDetailService.updateBillDetails(id,request);
+        return ResponseEntity.ok().build();
     }
 }

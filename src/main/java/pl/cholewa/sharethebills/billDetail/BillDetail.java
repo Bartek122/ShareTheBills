@@ -17,6 +17,7 @@ import java.math.BigDecimal;
                         "JOIN groups g ON b.group_id=g.id " +
                         "WHERE u.login=:loginBorrower " +
                         "AND g.name=:groupName " +
+                        "AND u.login<>p.login " +
                         "GROUP BY u.login, p.login,g.name ",
         resultSetMapping = "mapping_sum_price_for_user"
 )
@@ -45,9 +46,13 @@ public class BillDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private BigDecimal price;
+    private boolean isChange;
     @ManyToOne
     private User borrower;
     @ManyToOne
     private Bill masterBill;
+
+
+
 
 }

@@ -7,6 +7,7 @@ import pl.cholewa.sharethebills.bill.Bill;
 import pl.cholewa.sharethebills.user.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BillDetailRepository extends JpaRepository<BillDetail,Long> {
     List<BillDetail> findAllByBorrower(User borrower);
@@ -17,5 +18,8 @@ public interface BillDetailRepository extends JpaRepository<BillDetail,Long> {
             @Param("groupName") String groupName
     );
     BillDetail findByBorrowerAndMasterBill(User borrower, Bill masterBill);
+    List<BillDetail> findAllByMasterBill(Bill masterBill);
+    Optional<BillDetail> findById(Long id);
+
 
 }
