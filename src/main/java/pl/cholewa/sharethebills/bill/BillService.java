@@ -12,5 +12,7 @@ public interface BillService {
     BillResponse update (Long id,UpdateBillRequest billRequest);
 
     void billDelete(Long id);
+
+    List<BillResponse> getAll();
 }
 
