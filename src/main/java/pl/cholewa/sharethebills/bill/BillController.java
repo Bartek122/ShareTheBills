@@ -21,6 +21,11 @@ public class BillController {
         log.debug("Collected {} bills",bills.size());
         return bills;
     }
+    @GetMapping
+    public List<BillResponse> getAllBill(){
+        List<BillResponse> billResponses = billService.getAll();
+        return billResponses;
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<BillResponse> updateBill(@PathVariable Long id,@RequestBody @Valid UpdateBillRequest request){
