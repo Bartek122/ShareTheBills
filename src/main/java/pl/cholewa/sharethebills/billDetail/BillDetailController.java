@@ -19,12 +19,14 @@ public class BillDetailController {
     @GetMapping
     public List<BillDetailResponse> getDetail(@RequestBody @Valid BillDetailRequest billDetailRequest){
         List<BillDetailResponse> billDetailResponses = billDetailService.getSumByBorrower(billDetailRequest);
+        log.debug("Collected {} bills details",billDetailResponses.size());
         return billDetailResponses;
     }
 
     @PutMapping("/{id}")
     public ResponseEntity updateBillDetail(@PathVariable Long id, @RequestBody @Valid UpdateBillDetailRequest request){
         billDetailService.updateBillDetails(id,request);
+        log.debug("Bill detail updated with id {} ", id);
         return ResponseEntity.ok().build();
     }
 }
