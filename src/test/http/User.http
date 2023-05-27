@@ -1,0 +1,106 @@
+###getBill
+GET http://localhost:8080/bill/bartek1222
+
+###Create User
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "login": "janus1212",
+  "firstName": "Janusz",
+  "lastName": "Motyka",
+  "attrType": "account",
+  "attrContent": "123456789012344478912123456"
+}
+###Create User
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "login": "kowal112",
+  "firstName": "Marian",
+  "lastName": "Kowalski",
+  "attrType": "account",
+  "attrContent": "12345678901234447890123456"
+}
+###Create User
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "login": "nowak1212",
+  "firstName": "Marian",
+  "lastName": "Nowak",
+  "attrType": "account",
+  "attrContent": "12345678901233447890123456"
+}
+
+
+
+###Create Bill
+POST http://localhost:8080/bill
+Content-Type: application/json
+
+{
+  "description": "Podróż nad morze",
+  "price": 780,
+  "groupName": "Grupa",
+  "loginPayer": "nowak1212"
+}
+
+###getBillDetail
+GET http://localhost:8080/billDetail/
+Content-Type: application/json
+
+{
+  "loginBorrower": "nowak1212",
+  "groupName": "Grupa"
+}
+
+###Update Bill
+PUT http://localhost:8080/bill/10
+Content-Type: application/json
+
+{
+  "price": 300,
+  "description": "Wyjazdd"
+}
+
+###Delete Bill
+DELETE http://localhost:8080/bill/10
+
+
+###Get All Bill
+GET http://localhost:8080/bill
+
+###Update Bill Details
+PUT http://localhost:8080/billDetail/22
+Content-Type: application/json
+
+{
+  "amount": 0
+}
+
+###Get All Group
+GET http://localhost:8080/group
+
+###Create Group
+POST http://localhost:8080/group
+Content-Type: application/json
+
+{
+  "groupName": "Prezenty",
+  "login": "janus1212"
+}
+
+###Update Group
+PUT http://localhost:8080/group/4
+Content-Type: application/json
+
+{
+  "name": "PrezentyM"
+}
+###Delete Group
+DELETE http://localhost:8080/group/3
+
+
