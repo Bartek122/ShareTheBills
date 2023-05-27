@@ -1,4 +1,4 @@
-package pl.cholewa.sharethebills.user;
+package pl.cholewa.sharethebills.userAttribute;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

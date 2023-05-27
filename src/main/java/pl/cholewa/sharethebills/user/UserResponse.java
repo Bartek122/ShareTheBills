@@ -1,9 +1,8 @@
 package pl.cholewa.sharethebills.user;
 
 import org.springframework.lang.Nullable;
+import pl.cholewa.sharethebills.userAttribute.UserAttribute;
 
-import javax.validation.constraints.Null;
-import java.util.ArrayList;
 import java.util.List;
 
 

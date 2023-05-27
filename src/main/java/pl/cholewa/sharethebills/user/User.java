@@ -2,6 +2,7 @@ package pl.cholewa.sharethebills.user;
 
 import lombok.*;
 import pl.cholewa.sharethebills.group.Group;
+import pl.cholewa.sharethebills.userAttribute.UserAttribute;
 
 import javax.persistence.*;
 import java.util.ArrayList;

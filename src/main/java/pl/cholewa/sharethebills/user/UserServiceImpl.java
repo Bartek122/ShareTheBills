@@ -6,6 +6,8 @@ import pl.cholewa.sharethebills.dictionary.Dictionary;
 import pl.cholewa.sharethebills.dictionary.DictionaryRepository;
 import pl.cholewa.sharethebills.dictionaryValue.DictionaryValue;
 import pl.cholewa.sharethebills.dictionaryValue.DictionaryValueRepository;
+import pl.cholewa.sharethebills.userAttribute.UserAttribute;
+import pl.cholewa.sharethebills.userAttribute.UserAttributeRepository;
 
 @Service
 @RequiredArgsConstructor

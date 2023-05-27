@@ -1,6 +1,7 @@
-package pl.cholewa.sharethebills.user;
+package pl.cholewa.sharethebills.userAttribute;
 
 import lombok.*;
+import pl.cholewa.sharethebills.user.User;
 
 import javax.persistence.*;
 
