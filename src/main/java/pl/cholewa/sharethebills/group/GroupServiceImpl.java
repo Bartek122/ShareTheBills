@@ -22,7 +22,8 @@ public class GroupServiceImpl implements GroupService{
     @Override
     @Transactional
     public GroupResponse create(CreateGroupRequest request) {
-        User user = userRepository.findByLogin(request.login());
+        User user = userRepository.findByLogin(request.login())
+                .orElseThrow(()-> new IllegalArgumentException("User not exist"));
         Group group = Group
                 .builder()
                 .name(request.groupName())

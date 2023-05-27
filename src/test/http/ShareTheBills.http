@@ -1,16 +1,16 @@
 ###getBill
-GET http://localhost:8080/bill/bartek1222
+GET http://localhost:8080/bill/nowak1212
 
 ###Create User
 POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "janus1212",
-  "firstName": "Janusz",
-  "lastName": "Motyka",
+  "login": "OBR_user1",
+  "firstName": "Jan",
+  "lastName": "Kowalski",
   "attrType": "account",
-  "attrContent": "123456789012344478912123456"
+  "attrContent": "123456789012344478912123457"
 }
 ###Create User
 POST http://localhost:8080/user
@@ -53,12 +53,12 @@ GET http://localhost:8080/billDetail/
 Content-Type: application/json
 
 {
-  "loginBorrower": "nowak1212",
+  "loginBorrower": "OBR_user1",
   "groupName": "Grupa"
 }
 
 ###Update Bill
-PUT http://localhost:8080/bill/10
+PUT http://localhost:8080/bill/11
 Content-Type: application/json
 
 {
@@ -74,11 +74,11 @@ DELETE http://localhost:8080/bill/10
 GET http://localhost:8080/bill
 
 ###Update Bill Details
-PUT http://localhost:8080/billDetail/22
+PUT http://localhost:8080/billDetail/24
 Content-Type: application/json
 
 {
-  "amount": 0
+  "amount": 23
 }
 
 ###Get All Group

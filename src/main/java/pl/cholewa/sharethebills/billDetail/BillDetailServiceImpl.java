@@ -33,8 +33,6 @@ public class BillDetailServiceImpl implements BillDetailService{
     @Transactional
     public void updateBillDetails(Long id, UpdateBillDetailRequest request) {
         Optional<BillDetail> oldBillDetail = billDetailRepository.findById(id);
-        Bill masterBill = oldBillDetail.get().getMasterBill();
-        List<BillDetail> billDetails = billDetailRepository.findAllByMasterBill(masterBill);
 
         oldBillDetail.map(billDetail -> {
             billDetail.setPrice(request.amount());
@@ -42,6 +40,8 @@ public class BillDetailServiceImpl implements BillDetailService{
             return billDetail;
         })      .map(billDetailRepository::save)
                 .orElseThrow(() -> new IllegalArgumentException("No bill details with id " + id));
+        Bill masterBill = oldBillDetail.get().getMasterBill();
+        List<BillDetail> billDetails = billDetailRepository.findAllByMasterBill(masterBill);
         BigDecimal oldSumAmount = masterBill.getSumPrice();
         List<BillDetail> billDetailListWithFalse= billDetails.stream()
                 .filter(billDetail -> billDetail.isChange()==false)

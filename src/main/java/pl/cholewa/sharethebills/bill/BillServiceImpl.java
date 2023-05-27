@@ -28,8 +28,12 @@ public class BillServiceImpl implements BillService{
     @Override
     @Transactional
     public BillResponse insert(CreateBillRequest billRequest) {
-        User payer = userRepository.findByLogin(billRequest.loginPayer());
-        Group group = groupRepository.findByName(billRequest.groupName());
+        User payer = userRepository
+                .findByLogin(billRequest.loginPayer())
+                .orElseThrow(() -> new IllegalArgumentException("User not exist"));
+        Group group = groupRepository.findByNameAndUsers(billRequest.groupName(),payer)
+                .orElseThrow(() -> new IllegalArgumentException("Group not exist or payer does not belong to the group "));
+        //List<User> payerInGroup = group.getUsers().stream().filter(user -> user.equals(payer)).collect(Collectors.toList());
         List<User> userList = group.getUsers();
         int userCount = userList.size();
         BigDecimal priceByUser = amountPerUser(billRequest.price(), userCount);
@@ -56,7 +60,9 @@ public class BillServiceImpl implements BillService{
 
     @Override
     public List<BillResponse> getAllByPayer(String login) {
-        User payer = userRepository.findByLogin(login);
+        User payer = userRepository
+                .findByLogin(login)
+                .orElseThrow(() -> new IllegalArgumentException("User not exist"));;
         List<Bill> bills = billRepository.findAllByPayer(payer);
         return bills.stream()
                 .map(this::toResponse)
