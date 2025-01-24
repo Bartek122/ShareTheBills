@@ -44,15 +44,19 @@ public class BillDetailServiceImpl implements BillDetailService{
         List<BillDetail> billDetails = billDetailRepository.findAllByMasterBill(masterBill);
         BigDecimal oldSumAmount = masterBill.getSumPrice();
         List<BillDetail> billDetailListWithFalse= billDetails.stream()
-                .filter(billDetail -> billDetail.isChange()==false)
+//                .filter(billDetail -> billDetail.isChange()==false)
+                .filter(billDetail -> !billDetail.isChange())
                 .collect(Collectors.toList());
         List<BillDetail> billDetailListWithTrue=billDetails.stream()
-                .filter(billDetail -> billDetail.isChange()==true)
+//                .filter(billDetail -> billDetail.isChange()==true)
+//                .filter(billDetail -> billDetail.isChange())
+                .filter(BillDetail::isChange)
                 .collect(Collectors.toList());
         int BillDetailToChange = billDetailListWithFalse.size();
         BigDecimal amountForOtherBorrower = oldSumAmount.subtract(request.amount());
 
-        if(billDetailListWithTrue.size()>0){
+        //if(billDetailListWithTrue.size()>0){
+        if(!billDetailListWithTrue.isEmpty()){
             for (BillDetail billDetail:billDetailListWithTrue) {
                 if(oldBillDetail.get() != billDetail) {
                     amountForOtherBorrower = amountForOtherBorrower.subtract(billDetail.getPrice());

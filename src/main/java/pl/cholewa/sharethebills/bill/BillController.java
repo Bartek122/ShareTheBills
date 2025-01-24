@@ -15,7 +15,7 @@ import java.util.List;
 public class BillController {
     private final BillService billService;
 
-    @GetMapping("/{login}")
+
     public List<BillResponse> getBill(@PathVariable String login){
         List<BillResponse> bills = billService.getAllByPayer(login);
         log.debug("Collected {} bills",bills.size());

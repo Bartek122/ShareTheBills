@@ -6,33 +6,33 @@ POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "OBR_user1",
+  "login": "OBR_user2",
   "firstName": "Jan",
   "lastName": "Kowalski",
   "attrType": "account",
-  "attrContent": "123456789012344478912123457"
+  "attrContent": "123456789012344478912123459"
 }
 ###Create User
 POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "kowal112",
+  "login": "OBR_user3",
   "firstName": "Marian",
   "lastName": "Kowalski",
   "attrType": "account",
-  "attrContent": "12345678901234447890123456"
+  "attrContent": "12345678901234447890123436"
 }
 ###Create User
 POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "nowak1212",
+  "login": "OBR_user4",
   "firstName": "Marian",
   "lastName": "Nowak",
   "attrType": "account",
-  "attrContent": "12345678901233447890123456"
+  "attrContent": "12345678901233447890125456"
 }
 
 
@@ -42,10 +42,10 @@ POST http://localhost:8080/bill
 Content-Type: application/json
 
 {
-  "description": "Podróż nad morze",
+  "description": "Obr_1",
   "price": 780,
-  "groupName": "Grupa",
-  "loginPayer": "nowak1212"
+  "groupName": "Obrona",
+  "loginPayer": "OBR_user2"
 }
 
 ###getBillDetail
@@ -53,17 +53,17 @@ GET http://localhost:8080/billDetail/
 Content-Type: application/json
 
 {
-  "loginBorrower": "OBR_user1",
-  "groupName": "Grupa"
+  "loginBorrower": "OBR_user4",
+  "groupName": "Obrona"
 }
 
 ###Update Bill
-PUT http://localhost:8080/bill/11
+PUT http://localhost:8080/bill/14
 Content-Type: application/json
 
 {
-  "price": 300,
-  "description": "Wyjazdd"
+  "price": 300
+
 }
 
 ###Delete Bill
@@ -74,7 +74,7 @@ DELETE http://localhost:8080/bill/10
 GET http://localhost:8080/bill
 
 ###Update Bill Details
-PUT http://localhost:8080/billDetail/24
+PUT http://localhost:8080/billDetail/34
 Content-Type: application/json
 
 {
@@ -89,8 +89,8 @@ POST http://localhost:8080/group
 Content-Type: application/json
 
 {
-  "groupName": "Prezenty",
-  "login": "janus1212"
+  "groupName": "Obrona",
+  "login": "OBR_user2"
 }
 
 ###Update Group
@@ -101,6 +101,6 @@ Content-Type: application/json
   "name": "PrezentyM"
 }
 ###Delete Group
-DELETE http://localhost:8080/group/3
+DELETE http://localhost:8080/group/10
 
 

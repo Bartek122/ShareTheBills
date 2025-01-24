@@ -51,8 +51,4 @@ public class BillDetail {
     private User borrower;
     @ManyToOne
     private Bill masterBill;
-
-
-
-
 }
